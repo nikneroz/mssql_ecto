@@ -1,7 +1,7 @@
-defmodule MssqlEcto.Migration do
+defmodule Ecto.Adapters.MSSQL.Migration do
   alias Ecto.Migration.{Table, Index, Reference, Constraint}
 
-  import MssqlEcto.Helpers
+  import Ecto.Adapters.MSSQL.Helpers
 
   @drops [:drop, :drop_if_exists]
 

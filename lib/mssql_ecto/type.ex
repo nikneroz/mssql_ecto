@@ -1,4 +1,4 @@
-defmodule MssqlEcto.Type do
+defmodule Ecto.Adapters.MSSQL.Type do
   @int_types [:bigint, :integer, :id, :serial]
   @decimal_types [:numeric, :decimal]
 

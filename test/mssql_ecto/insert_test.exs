@@ -1,5 +1,5 @@
-defmodule MssqlEcto.InsertTest do
-  use MssqlEcto.Case, async: true
+defmodule Ecto.Adapters.MSSQL.InsertTest do
+  use Ecto.Adapters.MSSQL.Case, async: true
 
   import Ecto.Query
 

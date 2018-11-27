@@ -1,14 +1,14 @@
-defmodule MssqlEcto do
+defmodule Ecto.Adapters.MSSQL do
   @moduledoc false
   @behaviour Ecto.Adapter.Storage
 
-  use Ecto.Adapters.SQL, :mssqlex
+  use Ecto.Adapters.SQL, :mssqlex_v3
 
-  alias MssqlEcto.Migration
-  alias MssqlEcto.Storage
-  alias MssqlEcto.Structure
+  alias Ecto.Adapters.MSSQL.Migration
+  alias Ecto.Adapters.MSSQL.Storage
+  alias Ecto.Adapters.MSSQL.Structure
 
-  import MssqlEcto.Type, only: [encode: 2, decode: 2]
+  import Ecto.Adapters.MSSQL.Type, only: [encode: 2, decode: 2]
 
   def autogenerate(:binary_id), do: Ecto.UUID.generate()
   def autogenerate(type), do: super(type)
@@ -22,8 +22,11 @@ defmodule MssqlEcto do
 
   def loaders({:embed, _} = type, _),
     do: [&Ecto.Adapters.SQL.load_embed(type, &1)]
+  def loaders(:date, type), do: [&load_date(&1)]
 
   def loaders(ecto_type, type), do: [&decode(&1, ecto_type), type]
+
+  def load_date(value), do: Ecto.Type.cast(:date, value)
 
   ## Migration
   def supports_ddl_transaction?, do: Migration.supports_ddl_transaction?()

@@ -1,4 +1,4 @@
-defmodule MssqlEcto.Structure do
+defmodule Ecto.Adapters.MSSQL.Structure do
   @behaviour Ecto.Adapter.Structure
 
   def structure_dump(_default, _config) do

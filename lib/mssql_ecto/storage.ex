@@ -1,4 +1,4 @@
-defmodule MssqlEcto.Storage do
+defmodule Ecto.Adapters.MSSQL.Storage do
   @behaviour Ecto.Adapter.Storage
 
   def storage_up(opts) do
@@ -65,7 +65,7 @@ defmodule MssqlEcto.Storage do
     task =
       Task.Supervisor.async_nolink(pid, fn ->
         {:ok, conn} = DBConnection.start_link(Mssqlex.Protocol, opts)
-        value = MssqlEcto.Connection.execute(conn, sql, [], opts)
+        value = Ecto.Adapters.MSSQL.Connection.execute(conn, sql, [], opts)
         GenServer.stop(conn)
         value
       end)

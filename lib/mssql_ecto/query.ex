@@ -1,7 +1,7 @@
-defmodule MssqlEcto.Query do
-  alias MssqlEcto.QueryString
+defmodule Ecto.Adapters.MSSQL.Query do
+  alias Ecto.Adapters.MSSQL.QueryString
 
-  import MssqlEcto.Helpers
+  import Ecto.Adapters.MSSQL.Helpers
 
   @doc """
   Receives a query and must return a SELECT query.

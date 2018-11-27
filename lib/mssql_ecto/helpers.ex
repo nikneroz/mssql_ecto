@@ -1,5 +1,5 @@
-defmodule MssqlEcto.Helpers do
-  alias MssqlEcto.QueryString
+defmodule Ecto.Adapters.MSSQL.Helpers do
+  alias Ecto.Adapters.MSSQL.QueryString
 
   def get_source(query, sources, ix, source) do
     {expr, name, _schema} = elem(sources, ix)

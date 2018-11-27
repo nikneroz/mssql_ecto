@@ -1,5 +1,5 @@
-defmodule MssqlEcto.ConstraintTest do
-  use MssqlEcto.Case, async: true
+defmodule Ecto.Adapters.MSSQL.ConstraintTest do
+  use Ecto.Adapters.MSSQL.Case, async: true
 
   import Ecto.Migration, only: [constraint: 2, constraint: 3]
 

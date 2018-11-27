@@ -1,6 +1,6 @@
-defmodule MssqlEcto.Connection do
-  alias Mssqlex.Query
-  alias MssqlEcto.Query, as: SQL
+defmodule Ecto.Adapters.MSSQL.Connection do
+  alias MssqlexV3.Query
+  alias Ecto.Adapters.MSSQL.Query, as: SQL
 
   @typedoc "The prepared query which is an SQL command"
   @type prepared :: String.t()
@@ -14,7 +14,7 @@ defmodule MssqlEcto.Connection do
   """
   @spec child_spec(options :: Keyword.t()) :: {module, Keyword.t()}
   def child_spec(opts) do
-    DBConnection.child_spec(Mssqlex.Protocol, opts)
+    DBConnection.child_spec(MssqlexV3.Protocol, opts)
   end
 
   @doc """
@@ -41,7 +41,7 @@ defmodule MssqlEcto.Connection do
         {:ok, %{query | statement: prepared_query},
          process_rows(result, options)}
 
-      {:error, %Mssqlex.Error{}} = error ->
+      {:error, %MssqlexV3.Error{}} = error ->
         if is_erlang_odbc_no_data_found_bug?(error, prepared_query) do
           {:ok, %Query{name: "", statement: prepared_query},
            %{num_rows: 0, rows: []}}
@@ -52,6 +52,11 @@ defmodule MssqlEcto.Connection do
       {:error, error} ->
         raise error
     end
+  end
+
+  @impl true
+  def query(conn, sql, params, opts) do
+    MssqlexV3.query(conn, sql, params, opts)
   end
 
   @doc """
@@ -82,7 +87,7 @@ defmodule MssqlEcto.Connection do
       {:ok, _query, result} ->
         {:ok, process_rows(result, options)}
 
-      {:error, %Mssqlex.Error{}} = error ->
+      {:error, %MssqlexV3.Error{}} = error ->
         if is_erlang_odbc_no_data_found_bug?(error, query.statement) do
           {:ok, %{num_rows: 0, rows: []}}
         else
@@ -167,7 +172,7 @@ defmodule MssqlEcto.Connection do
   from any constraint.
   """
   @spec to_constraints(exception :: Exception.t()) :: Keyword.t()
-  def to_constraints(%Mssqlex.Error{} = error), do: error.constraint_violations
+  def to_constraints(%MssqlexV3.Error{} = error), do: error.constraint_violations
 
   @doc """
   Returns a stream that prepares and executes the given query with
@@ -199,5 +204,5 @@ defmodule MssqlEcto.Connection do
     do: SQL.delete(prefix, table, filters, returning)
 
   ## Migration
-  def execute_ddl(command), do: MssqlEcto.Migration.execute_ddl(command)
+  def execute_ddl(command), do: Ecto.Adapters.MSSQL.Migration.execute_ddl(command)
 end

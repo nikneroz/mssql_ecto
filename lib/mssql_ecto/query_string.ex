@@ -1,8 +1,8 @@
-defmodule MssqlEcto.QueryString do
+defmodule Ecto.Adapters.MSSQL.QueryString do
   alias Ecto.Query
   alias Ecto.Query.{BooleanExpr, JoinExpr, QueryExpr}
-  alias MssqlEcto.Connection
-  alias MssqlEcto.Helpers
+  alias Ecto.Adapters.MSSQL.Connection
+  alias Ecto.Adapters.MSSQL.Helpers
 
   binary_ops = [
     ==: " = ",
@@ -527,7 +527,7 @@ defmodule MssqlEcto.QueryString do
   def create_names(prefix, sources, pos, limit) when pos < limit do
     current =
       case elem(sources, pos) do
-        {table, schema} ->
+        {table, schema, prefix} ->
           name = [String.first(table) | Integer.to_string(pos)]
           {Helpers.quote_table(prefix, table), name, schema}
 
