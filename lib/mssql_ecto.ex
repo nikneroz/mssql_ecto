@@ -2,7 +2,7 @@ defmodule Ecto.Adapters.MSSQL do
   @moduledoc false
   @behaviour Ecto.Adapter.Storage
 
-  use Ecto.Adapters.SQL, :mssqlex_v3
+  use Ecto.Adapters.SQL, [driver: :mssqlex_v3]
 
   alias Ecto.Adapters.MSSQL.Migration
   alias Ecto.Adapters.MSSQL.Storage
