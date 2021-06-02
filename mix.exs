@@ -32,8 +32,8 @@ defmodule MssqlEcto.Mixfile do
   defp deps do
     [
       {:mssqlex_v3, "~> 3.0.0"},
-      {:ecto, "~> 3.0.0"},
-      {:ecto_sql, "~> 3.0.0"},
+      {:ecto, ">= 3.0.0"},
+      {:ecto_sql, "~> 3.4"},
       {:ex_doc, "~> 0.15", only: :dev, runtime: false},
       {:excoveralls, "~> 0.6", only: :test},
       {:inch_ex, "~> 0.5", only: :docs}
